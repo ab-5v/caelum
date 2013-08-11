@@ -19,19 +19,19 @@ var redirect = {
 
 passport.use('facebook', strategy);
 
-
 passport.serializeUser(function(profile, done) {
     done(null, profile.provider + '_' + profile.id);
 });
 
 passport.deserializeUser(function(key, done) {
     key = key.split('_');
-
-    db.users.findOne({id: key[0], provider: key[1]}, done);
+    db.users.findOne({id: key[1], provider: key[0]}, done);
 });
 
 
-module.exports = passport.authorize('facebook');
+module.exports = function(req, res, next) {
+    if (req.user) { next(); } else { res.send(403); }
+};
 
 xtnd(module.exports, {
     // Redirect the user to Facebook for authentication.  When complete,

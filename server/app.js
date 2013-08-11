@@ -27,7 +27,7 @@ app.get('/api/auth/facebook', auth.facebook);
 app.get('/api/auth/facebook/callback', auth.facebookCallback);
 
 app.post('/api/timers/', timers.create);
-app.get('/api/timers', timers.read);
+app.get('/api/timers', auth, timers.read);
 app.get('/api/timers/:_id', timers.read);
 app.put('/api/timers/:_id', timers.update);
 app.del('/api/timers/:_id', timers.remove);
