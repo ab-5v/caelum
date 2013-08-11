@@ -1,3 +1,6 @@
+var db = require('../lib/db');
+
+var xtnd = require('xtnd');
 var passport = require('passport');
 var facebook = require('passport-facebook').Strategy;
 
@@ -11,32 +14,22 @@ var strategy = new facebook(options, verify);
 
 var redirect = {
     successRedirect: '/',
-    failureRedirect: '/login'
+    failureRedirect: '/'
 };
 
 passport.use('facebook', strategy);
 
-var DB = {};
 
-function verify(accessToken, refreshToken, profile, done) {
-    console.log('>>> verify', arguments);
-
-    DB[profile.username] = profile;
-    done(null, profile);
-   // User.findOrCreate(..., function(err, user) {
-   //     if (err) { return done(err); }
-   //     done(null, user);
-   // });
-
-}
-
-passport.serializeUser(function(user, done) {
-    done(null, user.username);
+passport.serializeUser(function(profile, done) {
+    done(null, profile.provider + '_' + profile.id);
 });
 
-passport.deserializeUser(function(username, done) {
-    done(null, DB[username]);
+passport.deserializeUser(function(key, done) {
+    key = key.split('_');
+
+    db.users.findOne({id: key[0], provider: key[1]}, done);
 });
+
 
 module.exports = {
     // Redirect the user to Facebook for authentication.  When complete,
@@ -50,3 +43,18 @@ module.exports = {
     // authentication has failed.
     facebookCallback: passport.authenticate('facebook', redirect).bind(passport)
 };
+
+
+function verify(accessToken, refreshToken, profile, done) {
+
+    var doc = xtnd.filter(profile, filter);
+    var sort = [['id', 1]];
+    var query = {id: profile.id, provider: profile.provider};
+    var options = {upsert: true, new: true};
+
+    db.users.findAndModify(query, sort, doc, options, done);
+
+    function filter(value, key) {
+        return key[0] !== '_';
+    }
+}

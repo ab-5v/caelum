@@ -38,7 +38,7 @@ mongo.connect('mongodb://' + cfg.host + ':' + cfg.port + '/' + cfg.name, functio
         .then(function(collections) {
 
             collections.map(function(collection) {
-                exports[ collection.name ] = collection;
+                exports[ collection.collectionName ] = collection;
             });
         })
         .pipe(exports.isReady);
