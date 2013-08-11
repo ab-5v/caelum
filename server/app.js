@@ -3,7 +3,7 @@ var http = require('http');
 var path = require('path');
 var pzero = require('pzero');
 var express = require('express');
-var passport = require('./lib/passport');
+var passport = require('passport');
 
 var db = require('./lib/db');
 var routes = require('./routes');
@@ -26,10 +26,13 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/login', auth.login);
-app.post('/login', auth.doLogin);
-app.get('/users', passport.authorize('local', { failureRedirect: '/login' }), user.list);
+var redirect = {
+    successRedirect: '/',
+    failureRedirect: '/login'
+};
+
+app.get('/api/auth/facebook', auth.facebook);
+app.get('/api/auth/facebook/callback', auth.facebookCallback);
 
 pzero
     .when([db.isReady])
