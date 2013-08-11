@@ -1,11 +1,13 @@
+var http = require('http');
+var path = require('path');
+var pzero = require('pzero');
 var express = require('express');
 var passport = require('./lib/passport');
 
+var db = require('./lib/db');
 var routes = require('./routes');
 var user = require('./routes/user');
 var auth = require('./routes/auth');
-var http = require('http')
-var path = require('path');
 
 
 
@@ -36,6 +38,14 @@ app.get('/login', auth.login);
 app.post('/login', auth.doLogin);
 app.get('/users', passport.authorize('local', { failureRedirect: '/login' }), user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-});
+pzero
+    .when([db.isReady])
+    .then(function() {
+        http.createServer(app).listen(app.get('port'), function(){
+            console.log('Express server listening on port ' + app.get('port'));
+        });
+    })
+    .fail(function(err) {
+        console.log(err);
+        process.exit();
+    });
