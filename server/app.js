@@ -16,7 +16,7 @@ var app = express();
 app.set('port', process.env.PORT || '/tmp/tq6.ru.sock');
 
 app.use(express.logger('dev'));
-app.use(express.methodOverride());
+app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.cookieSession({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
@@ -26,11 +26,11 @@ app.use(jsonResponse);
 app.get('/api/auth/facebook', auth.facebook);
 app.get('/api/auth/facebook/callback', auth.facebookCallback);
 
-app.post(   '/api/timers/',     auth, timers.create);
-app.get(    '/api/timers',      auth, timers.read);
+app.get(    '/api/timers/',     auth, timers.read);
 app.get(    '/api/timers/:_id', auth, timers.read);
 app.put(    '/api/timers/:_id', auth, timers.update);
 app.del(    '/api/timers/:_id', auth, timers.remove);
+app.post(   '/api/timers/',     auth, timers.create);
 
 pzero
     .when([db.isReady])

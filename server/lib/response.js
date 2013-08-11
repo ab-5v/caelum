@@ -9,6 +9,10 @@ module.exports = function(req, res, next) {
         }
     }
 
+    res.endifyOne = function(err, data) {
+        res.endify(err, data && data[0]);
+    }
+
     next();
 
 };

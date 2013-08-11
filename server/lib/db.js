@@ -1,5 +1,6 @@
 var pzero = require('pzero');
 var mongo = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 
 var cfg = {
     host: 'localhost',
@@ -9,6 +10,9 @@ var cfg = {
 };
 
 exports = {
+    id: function(hex) {
+        return new ObjectID.createFromHexString(hex);
+    },
     close: function() {
         exports._db.close();
     },

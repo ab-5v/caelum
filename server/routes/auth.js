@@ -50,11 +50,10 @@ xtnd(module.exports, {
 function verify(accessToken, refreshToken, profile, done) {
 
     var doc = xtnd.filter(profile, filter);
-    var sort = [['id', 1]];
     var query = {id: profile.id, provider: profile.provider};
     var options = {upsert: true, new: true};
 
-    db.users.findAndModify(query, sort, doc, options, done);
+    db.users.findAndModify(query, [], doc, options, done);
 
     function filter(value, key) {
         return key[0] !== '_';

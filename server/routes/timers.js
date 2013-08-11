@@ -4,23 +4,41 @@ module.exports = {
 
     read: function(req, res) {
         var query = {
-            owner: 'artjock'
+            user: req.user._id
         };
 
         if (req.params._id) {
-            query._id = req.params._id;
+            query._id = db.id(req.params._id);
         }
 
         db.timers.find(query).toArray(res.endify);
     },
+
     create: function(req, res) {
-        db.timers.insert(req.params, res.endify);
+        var doc = {
+            user: req.user._id,
+            name: req.body.name || ''
+        };
+
+        db.timers.insert(doc, res.endifyOne);
     },
+
     update: function(req, res) {
-        db.timers.update({_id: req.params._id}, req.params, res.end);
+        var query = { _id: db.id(req.params._id) };
+        var options = {new: true};
+        var updates = {};
+
+        if ('name' in req.body) {
+            updates.name = req.body.name;
+        }
+
+        db.timers.findAndModify(query, [], {$set: updates}, options, res.endify);
     },
+
     remove: function(req, res) {
-        db.timers.remove({_id: req.params._id}, res.end);
+        var query = { _id: db.id(req.params._id) };
+
+        db.timers.findAndRemove(query, [], res.endify);
     }
 
 };
