@@ -8,6 +8,7 @@ var passport = require('passport');
 var db = require('./lib/db');
 var auth = require('./routes/auth');
 var timers = require('./routes/timers');
+var jsonResponse = require('./lib/response');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.use(express.cookieParser());
 app.use(express.cookieSession({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(jsonResponse);
 
 app.get('/api/auth/facebook', auth.facebook);
 app.get('/api/auth/facebook/callback', auth.facebookCallback);

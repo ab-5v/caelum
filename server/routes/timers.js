@@ -11,16 +11,10 @@ module.exports = {
             query._id = req.params._id;
         }
 
-        db.timers.find(query).toArray(function(err, data) {
-            if (err) {
-                res.end(err);
-            } else {
-                res.json(data);
-            }
-        });
+        db.timers.find(query).toArray(res.endify);
     },
     create: function(req, res) {
-        db.timers.insert(req.params, res.end);
+        db.timers.insert(req.params, res.endify);
     },
     update: function(req, res) {
         db.timers.update({_id: req.params._id}, req.params, res.end);
