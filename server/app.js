@@ -6,33 +6,29 @@ var express = require('express');
 var passport = require('passport');
 
 var db = require('./lib/db');
-var routes = require('./routes');
-var user = require('./routes/user');
 var auth = require('./routes/auth');
+var timers = require('./routes/timers');
 
 var app = express();
 
 // all environments
 app.set('port', process.env.PORT || '/tmp/tq6.ru.sock');
+
 app.use(express.logger('dev'));
+app.use(express.methodOverride());
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'keyboard cat' }));
+app.use(express.cookieSession({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
-
-// development only
-if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
-}
-
-var redirect = {
-    successRedirect: '/',
-    failureRedirect: '/login'
-};
 
 app.get('/api/auth/facebook', auth.facebook);
 app.get('/api/auth/facebook/callback', auth.facebookCallback);
+
+app.post('/api/timers/', timers.create);
+app.get('/api/timers', timers.read);
+app.get('/api/timers/:_id', timers.read);
+app.put('/api/timers/:_id', timers.update);
+app.del('/api/timers/:_id', timers.remove);
 
 pzero
     .when([db.isReady])
