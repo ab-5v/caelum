@@ -31,18 +31,20 @@ passport.deserializeUser(function(key, done) {
 });
 
 
-module.exports = {
+module.exports = passport.authorize('facebook');
+
+xtnd(module.exports, {
     // Redirect the user to Facebook for authentication.  When complete,
     // Facebook will redirect the user back to the application at
     // /auth/facebook/callback
-    facebook: passport.authenticate('facebook').bind(passport),
+    facebook: passport.authenticate('facebook'),
 
     // Facebook will redirect the user to this URL after approval.  Finish the
     // authentication process by attempting to obtain an access token.  If
     // access was granted, the user will be logged in.  Otherwise,
     // authentication has failed.
-    facebookCallback: passport.authenticate('facebook', redirect).bind(passport)
-};
+    facebookCallback: passport.authenticate('facebook', redirect)
+});
 
 
 function verify(accessToken, refreshToken, profile, done) {
