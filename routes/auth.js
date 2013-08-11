@@ -1,11 +1,5 @@
 var passport = require('passport');
 
-module.exports = function(req, res) {
-    if (!req.user) {
-        res.redirect('/login');
-    }
-};
-
 /*
  * GET login.
  */
