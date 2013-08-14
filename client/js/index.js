@@ -4,12 +4,11 @@
 
 
 $.ajax({
-    url: '/api/timers/520803b007cb9d9a5e000001',
-    method: 'delete',
-    data: {
-        name: 'Stalin'
-    },
+    url: '/api/timers/',
+    method: 'get',
     complete: function() {
         console.log(arguments);
     }
-})
+});
+
+
