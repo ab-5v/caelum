@@ -4,10 +4,11 @@ var xtnd = require('xtnd');
 var passport = require('passport');
 var facebook = require('passport-facebook').Strategy;
 
+var host = process.env.npm_config_host || 'tq6.ru';
 var options = {
     clientID: 286466648147122,
     clientSecret: '7d006475e55f98439f5faef86f979b7d',
-    callbackURL: 'http://tq6.ru/api/auth/facebook/callback'
+    callbackURL: 'http://' + host + '/api/auth/facebook/callback'
 };
 
 var strategy = new facebook(options, verify);
