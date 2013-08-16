@@ -1,26 +1,31 @@
 <!doctype html>
+<html ng-app>
 <meta charset="utf-8" />
 <title>tq6</title>
 
 <link href="css/index.css" rel="stylesheet" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="js/index.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
+<script src="js/index.js"></script>
 
 <a href="/api/auth/facebook">Login with Facebook</a>
 <a href="/api/timers">Timers</a>
 
 
-<div class="page">
+<div class="page" ng-controller="TimerCtrl">
 
-    <div class="timer">
-        <input type="text" value="Лев Толстой"/>
-        <span>12:00</span>
-        <button>▶</button>
-    </div>
-
-    <div class="timer">
-        <button>+</button>
-    </div>
+    <ul>
+        <li ng-repeat="timer in timers">
+            <input type="text" ng-model="timer.name"/>
+            <span>{{timer.value}}</span>
+            <button>▶</button>
+        </li>
+        <li>
+            <button>+</button>
+        </li>
+    </ul>
 
 </div>
+
+</html>

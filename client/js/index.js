@@ -1,14 +1,11 @@
-/* borschik:include:../bower_components/underscore/underscore.js */
-/* borschik:include:../bower_components/backbone/backbone.js */
 
+function TimerCtrl($scope, $http) {
 
-
-$.ajax({
-    url: '/api/timers/',
-    method: 'get',
-    complete: function() {
-        console.log(arguments);
-    }
-});
-
-
+    $http.get('/api/timers/')
+        .success(function(data) {
+            $scope.timers = data;
+        })
+        .error(function() {
+            console.log(arguments);
+        });
+}
