@@ -13,14 +13,14 @@
 
     <a ng-hide="timers" href="/api/auth/facebook">Login with Facebook</a>
 
-    <ul ng-show="timers">
-        <li ng-repeat="timer in timers">
-            <input type="text" ng-model="timer.name"/>
-            <span>{{timer.value}}</span>
-            <button>▶</button>
+    <ul class="timers" ng-show="timers">
+        <li class="timer" ng-repeat="timer in timers">
+            <input class="timer__title" type="text" ng-model="timer.name"/>
+            <span class="timer__value">{{timer.value | since}}</span>
+            <button class="timer__button">▶</button>
         </li>
-        <li>
-            <button>+</button>
+        <li class="timer">
+            <button class="timer__button">+</button>
         </li>
     </ul>
 

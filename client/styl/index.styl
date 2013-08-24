@@ -1,17 +1,27 @@
-html
+@import 'node_modules/stylobate'
+$init_islands_root = true
+@import 'node_modules/stylobate-islands'
+set-skin-namespace('islands')
+
+$xs = $islands_xs
+$s = $islands_s
+$m = $islands_m
+$l = $islands_l
+
+$text_m = $islands_text_m
+$text_s = $islands_text_s
+
+$color_text = $islands_color_text
+$color_text_misc = $islands_color_text_misc
+
+@import 'timer'
+
 body
-  margin: 0
-  padding: 0
+  background: #f6f5f3 url(../i/bg.png)
 
 
 .page
   width: 80%
   max-width: 800px
-  margin: 20px auto 0
+  margin: 0 auto 0
 
-.timer
-  display: inline-block
-  width: 120px
-  height: 120px
-  margin: 0 20px 20px 0
-  box-shadow: 0 0 1px #000
