@@ -1,11 +1,5 @@
+'use strict';
 
-function TimerCtrl($scope, $http) {
-
-    $http.get('/api/timers/')
-        .success(function(data) {
-            $scope.timers = data;
-        })
-        .error(function() {
-            console.log(arguments);
-        });
-}
+/* borschik:include:app.js */
+/* borschik:include:filters.js */
+/* borschik:include:controllers.js */
