@@ -1,9 +1,12 @@
 NBIN=$(CURDIR)/node_modules/.bin
 
+JSDIR=client/js
+STYLDIR=client/styl
+
 all: static/js/index.js static/css/index.css
 
-static/js/index.js: client/js/index.js client/bower.json
+static/js/index.js: $(JSDIR)/index.js $(JSDIR)/*.js client/bower.json
 	$(NBIN)/borschik -i $< -o $@ --minimize=no
 
-static/css/index.css: client/styl/*.styl
-	$(NBIN)/stylus -I client/styl < client/styl/index.styl > $@
+static/css/index.css: $(STYLDIR)/index.styl $(STYLDIR)/*.styl
+	$(NBIN)/stylus -I $(STYLDIR) < $< > $@
