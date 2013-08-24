@@ -56,6 +56,6 @@ function listen() {
             mask = null;
         }
 
-        console.log('Express server listening on' + app.get('port'));
+        console.log('Express server listening on', app.get('port'));
     });
 }
