@@ -27,6 +27,7 @@
     "borschik": "~0.3.5",
     "bower": "~1.1.2",
     "stylobate": "~0.13.5",
-    "stylobate-islands": "~0.10.4"
+    "stylobate-islands": "~0.10.4",
+    "phantomjs": "~1.9.1-8"
   }
 }
