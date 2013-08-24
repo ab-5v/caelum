@@ -1,3 +1,6 @@
+$timer_width = 160px
+$timer_height = 100px
+
 .timers
   margin: 0
   padding: 0
@@ -8,8 +11,8 @@
 
   display: inline-block
 
-  width: 160px
-  height: 100px
+  width: $timer_width
+  height: $timer_height
 
   margin: $m
   padding: $m
@@ -31,3 +34,6 @@
 .timer__button
   kind: button
   skin: button one-element
+
+.timer_new
+  line-height: $timer_height
