@@ -4,7 +4,8 @@
   "scripts": {
     "start": "nodemon server/app.js",
     "watch": "nodemon -w client -w Makefile -e '.js|.styl' --exec make -C .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch-test": "karma start client/test/karma.unit.conf.js",
+    "test": "karma start client/test/karma.unit.conf.js --single-run"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,19 @@
     "bower": "~1.1.2",
     "stylobate": "~0.13.5",
     "stylobate-islands": "~0.10.4",
-    "phantomjs": "~1.9.1-8"
+
+    "phantomjs": "~1.9.1-8",
+    "karma-script-launcher": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.2",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma": "~0.10.2",
+    "mocha": "~1.12.0",
+    "karma-mocha": "~0.1.0",
+    "expect.js": "~0.2.0"
   }
 }
