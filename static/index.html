@@ -9,13 +9,11 @@
 
 <script src="js/index.js"></script>
 
-<a href="/api/auth/facebook">Login with Facebook</a>
-<a href="/api/timers">Timers</a>
-
-
 <div class="page" ng-controller="TimerCtrl">
 
-    <ul>
+    <a ng-hide="timers" href="/api/auth/facebook">Login with Facebook</a>
+
+    <ul ng-show="timers">
         <li ng-repeat="timer in timers">
             <input type="text" ng-model="timer.name"/>
             <span>{{timer.value}}</span>
