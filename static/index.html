@@ -9,14 +9,14 @@
 
 <script src="js/index.js"></script>
 
-<div class="page" ng-controller="TimerCtrl">
+<div class="page" ng-controller="TimersCtrl">
 
     <a ng-hide="timers" href="/api/auth/facebook">Login with Facebook</a>
 
     <ul class="timers" ng-show="timers">
-        <li class="timer" ng-repeat="timer in timers">
-            <input class="timer__title" type="text" ng-model="timer.name"/>
-            <span class="timer__value">{{timer.value | since}}</span>
+        <li class="timer" ng-repeat="timer in timers" ng-controller="TimerCtrl">
+            <input class="timer__title" type="text" ng-model="name" ng-change="titleChange()"/>
+            <span class="timer__value">{{value | since}}</span>
             <button class="timer__button">
                 <i class="icon-play"></i>
             </button>

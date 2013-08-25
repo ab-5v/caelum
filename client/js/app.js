@@ -1,1 +1,1 @@
-angular.module('caelum', ['caelum.filters']);
+angular.module('caelum', ['caelum.filters', 'caelum.controllers']);
