@@ -21,7 +21,7 @@ module.exports = {
     create: function(req, res) {
         var doc = {
             user: req.user._id,
-            title: req.body.name || '',
+            title: req.body.title || '',
             state: [
                 { ts: +new Date(), st: ZEROED }
             ]
