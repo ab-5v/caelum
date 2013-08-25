@@ -41,7 +41,7 @@ function TimersCtrl($scope, $http) {
         },
 
         pauseAll: function() {
-            $scope.timers.forEach(function(timer) {
+            angular.forEach($scope.timers, function(timer) {
                 if (timer.lastState === 'runned') {
                     $scope.updateState(timer._id, 'paused');
                 }
@@ -65,7 +65,7 @@ function TimersCtrl($scope, $http) {
             $http.put(API_TIMERS + id, {state: STATE[state]})
                 .success(function(data) {
 
-                    $scope.timers.forEach(function(timer) {
+                    angular.forEach($scope.timers, function(timer) {
                         if (timer._id === id) {
                             timer.state = data.state
                             $scope.setLastState(timer);
@@ -95,7 +95,7 @@ function TimersCtrl($scope, $http) {
                 return;
             }
 
-            states.forEach(function(state) {
+            angular.forEach(states, function(state) {
                 if (state.st === STATE['zeroed']) {
                     value = 0;
                 }
@@ -115,7 +115,7 @@ function TimersCtrl($scope, $http) {
         },
 
         updateValues: function() {
-            $scope.timers.forEach(function(timer) {
+            angular.forEach($scope.timers, function(timer) {
                 if (timer.lastState === 'runned') {
                     timer.value += 1000;
                 }
@@ -131,7 +131,7 @@ function TimersCtrl($scope, $http) {
             $scope.loaded = true;
             $scope.timers = data;
 
-            data.forEach(function(timer) {
+            angular.forEach(data, function(timer) {
                 $scope.setValue(timer);
                 $scope.setLastState(timer);
             });
