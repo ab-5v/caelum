@@ -50,11 +50,13 @@ function TimersCtrl($scope, $http) {
         },
 
         switchState: function(id, from) {
-            var state = from === 'runned' ?
+            var to = from === 'runned' ?
                 'paused' : 'runned';
 
-            $scope.pauseAll();
-            $scope.updateState(id, state);
+            if (to === 'runned') {
+                $scope.pauseAll();
+            }
+            $scope.updateState(id, to);
         },
 
         updateState: function(id, state) {
