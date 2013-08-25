@@ -4,4 +4,5 @@
 
 /* borschik:include:app.js */
 /* borschik:include:filters.js */
+/* borschik:include:directives.js */
 /* borschik:include:controllers.js */

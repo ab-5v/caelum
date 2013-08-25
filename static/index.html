@@ -16,10 +16,10 @@
 
         <li class="timer timer_{{timer.lastState}}" ng-repeat="timer in timers">
 
-            <input class="timer__title" type="text"
-                ng-model="timer.title"
-                ng-change="updateTitle(timer._id, timer.title)"
-                />
+            <div class="timer__title" ca-inplace="updateTitle(timer._id, timer.title)">
+                <div class="timer__title__text">{{timer.title}}</div>
+                <input class="timer__title__input" ng-model="timer.title" type="text" />
+            </div>
 
             <span class="timer__value">{{timer.value | since}}</span>
 

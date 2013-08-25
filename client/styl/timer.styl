@@ -15,14 +15,24 @@ $timer_height = 100px
   height: $timer_height
 
   margin: $m
-  padding: $m
+  padding: $s $m $m
 
   text-align: center
+  vertical-align: top
 
-.timer__title
+.timer__title__input
   skin: input small
 
   width: 100%
+
+.timer__title__text
+  padding: $xs $s
+  margin-bottom: -2px
+  text-align: left
+  font-size: $islands_text_s
+  white-space: nowrap
+  text-overflow: ellipsis
+  overflow-x: hidden
 
 .timer__value
   display: block
@@ -46,4 +56,3 @@ $timer_height = 100px
 
 .timer_new
   line-height: $timer_height
-  vertical-align: top
