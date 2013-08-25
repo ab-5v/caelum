@@ -63,6 +63,40 @@ function TimersCtrl($scope, $http) {
         setLastState: function(timer) {
             var last = timer.state[timer.state.length - 1];
             timer.lastState = STATE[ String(last.st) ];
+        },
+
+        setValue: function(timer) {
+            var now = +new Date();
+            var zero = 0;
+            var value = 0;
+            var start = 0;
+            var states = timer.state;
+            var last = states[states.length - 1];
+
+            if (last.st === STATE['zeroed']) {
+                timer.value = 0;
+                return;
+            }
+
+            states.forEach(function(state) {
+                if (state.st === STATE['zeroed']) {
+                    value = 0;
+                }
+                if (state.st === STATE['runned']) {
+                    start = state.ts;
+                }
+                if (state.st === STATE['paused']) {
+                    value += state.ts - start;
+                }
+            });
+
+            if (last.st === STATE['runned']) {
+                value += +new Date() - start;
+            }
+
+            console.log(value);
+
+            timer.value = value;
         }
 
     });
@@ -72,7 +106,10 @@ function TimersCtrl($scope, $http) {
             $scope.loaded = true;
             $scope.timers = data;
 
-            data.forEach($scope.setLastState);
+            data.forEach(function(timer) {
+                $scope.setValue(timer);
+                $scope.setLastState(timer);
+            });
 
         }).error(httperror);
 }

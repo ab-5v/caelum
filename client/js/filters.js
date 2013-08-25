@@ -4,18 +4,18 @@ angular.module('caelum.filters', [])
     .filter('since', function() {
 
         return function(ts) {
-            var now = +new Date();
-
-            if (!ts || ts > now) {
-                return '00:00'
+            if (!ts) {
+                return '00:00:00'
             }
 
-            var h = Math.floor( (now - ts)/(60*60*1000) );
-            var m = Math.floor( (now - ts)/(60*1000) );
+            var h = Math.floor( ts/(60*60*1000) );
+            var m = Math.floor( ts/(60*1000) );
+            var s = Math.floor( ts/(1000) ) % 60;
 
             if (h < 10) { h = '0' + h; }
             if (m < 10) { m = '0' + m; }
+            if (s < 10) { s = '0' + s; }
 
-            return h + ':' + m;
+            return h + ':' + m + ':' + s;
         }
     });
