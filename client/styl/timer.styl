@@ -24,16 +24,26 @@ $timer_height = 100px
 
   width: 100%
 
-
 .timer__value
   display: block
-  font-size: 2em
-  line-height: 2em
-  min-height: 2em
+  font-size: 1.5em
+  line-height: 1.5em
+  min-height: 1.5em
 
 .timer__button
   kind: button
   skin: button one-element
+  -webkit-transition: opacity .2s ease .2s;
+
+.is-disabled
+  cursor: default !important;
+  opacity: 0.6;
+
+.timer_runned .icon-play
+.timer_zeroed .icon-pause
+.timer_paused .icon-pause
+  display: none
 
 .timer_new
   line-height: $timer_height
+  vertical-align: top

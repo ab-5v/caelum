@@ -11,18 +11,30 @@
 
 <div class="page" ng-controller="TimersCtrl">
 
-    <a ng-hide="timers" href="/api/auth/facebook">Login with Facebook</a>
+    <a ng-hide="loaded" href="/api/auth/facebook">Login with Facebook</a>
 
-    <ul class="timers" ng-show="timers">
-        <li class="timer" ng-repeat="timer in timers" ng-controller="TimerCtrl">
-            <input class="timer__title" type="text" ng-model="name" ng-change="titleChange()"/>
-            <span class="timer__value">{{value | since}}</span>
-            <button class="timer__button">
+    <ul class="timers" ng-show="loaded">
+
+        <li class="timer timer_{{timer.lastState}}" ng-repeat="timer in timers">
+
+            <input class="timer__title" type="text"
+                ng-model="timer.title"
+                ng-change="updateTitle(timer._id, timer.title)"
+                />
+
+            <span class="timer__value">{{timer.value | since}}</span>
+
+            <button class="timer__button"
+                ng-click="updateState(timer._id, timer.lastState)"
+                ng-class="{'is-disabled': updatingState}"
+                ng-disabled="updatingState">
+
                 <i class="icon-play"></i>
+                <i class="icon-pause"></i>
             </button>
         </li>
         <li class="timer timer_new">
-            <button class="timer__button">
+            <button class="timer__button" ng-click="create()">
                 <i class="icon-plus"></i>
             </button>
         </li>
