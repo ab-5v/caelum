@@ -17,6 +17,7 @@ angular.module('caelum.controllers', [])
 function TimersCtrl($scope, $http) {
 
     console.log('TimersCtrl', $scope);
+
     $scope.titleChange = function() {
         console.log('TimersCtrl.titleChange', $scope);
     };
@@ -95,6 +96,16 @@ function TimersCtrl($scope, $http) {
             }
 
             timer.value = value;
+        },
+
+        updateValues: function() {
+            $scope.timers.forEach(function(timer) {
+                if (timer.lastState === 'runned') {
+                    timer.value += 1000;
+                }
+            });
+
+            $scope.$apply();
         }
 
     });
@@ -110,6 +121,10 @@ function TimersCtrl($scope, $http) {
             });
 
         }).error(httperror);
+
+    setInterval(function() {
+        $scope.updateValues();
+    }, 1000);
 }
 
 function httperror() {
