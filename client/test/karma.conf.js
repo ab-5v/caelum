@@ -1,8 +1,6 @@
 // Karma configuration
 // Generated on Sat Aug 24 2013 15:27:56 GMT+0000 (UTC)
 
-process.env['PHANTOMJS_BIN'] = require('path').resolve(__dirname, '../../node_modules/.bin/phantomjs');
-
 module.exports = function(config) {
   config.set({
 
@@ -16,9 +14,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'bower_components/angular/angular.js',
-        '../node_modules/expect.js/expect.js',
-        '../static/js/index.js'
+        '../static/js/index.js',
+        '../node_modules/expect.js/expect.js'
     ],
 
 
