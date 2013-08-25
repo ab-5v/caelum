@@ -41,10 +41,19 @@ function TimersCtrl($scope, $http) {
                 }).error(httperror);
         },
 
+        pauseAll: function() {
+            $scope.timers.forEach(function(timer) {
+                if (timer.lastState === 'runned') {
+                    $scope.updateState(timer._id, 'paused');
+                }
+            });
+        },
+
         switchState: function(id, from) {
             var state = from === 'runned' ?
                 'paused' : 'runned';
 
+            $scope.pauseAll();
             $scope.updateState(id, state);
         },
 
