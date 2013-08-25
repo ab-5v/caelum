@@ -25,7 +25,7 @@
             <span class="timer__value">{{timer.value | since}}</span>
 
             <button class="timer__button"
-                ng-click="updateState(timer._id, timer.lastState)"
+                ng-click="switchState(timer._id, timer.lastState)"
                 ng-class="{'is-disabled': updatingState}"
                 ng-disabled="updatingState">
 
