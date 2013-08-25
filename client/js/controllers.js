@@ -37,9 +37,7 @@ function TimersCtrl($scope, $http) {
 
         updateTitle: function(id, title) {
             $http.put(API_TIMERS + id, {title: title})
-                .success(function() {
-                    console.log(arguments);
-                }).error(httperror);
+                .error(httperror);
         },
 
         pauseAll: function() {
