@@ -29,6 +29,7 @@ function TimersCtrl($scope, $http) {
         create: function() {
             $http.post(API_TIMERS)
                 .success(function(data) {
+                    data.value = 0;
                     $scope.setLastState(data);
                     $scope.timers.push(data);
                 }).error(httperror);
