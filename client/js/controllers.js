@@ -94,8 +94,6 @@ function TimersCtrl($scope, $http) {
                 value += +new Date() - start;
             }
 
-            console.log(value);
-
             timer.value = value;
         }
 
