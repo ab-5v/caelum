@@ -1,6 +1,6 @@
 var db = require('../lib/db');
 
-const RUNNIG = 1;
+const RUNNED = 1;
 const PAUSED = 2;
 const ZEROED = 3;
 
@@ -32,19 +32,23 @@ module.exports = {
 
     update: function(req, res) {
         var param = req.body;
-        var query = { _id: db.id(req.params._id) };
-        var state = param.state;
+        var query = { _id: db.id(req.params._id), user: req.user._id };
+        var state = +param.state;
         var options = {new: true};
         var updates = {};
 
         if ('title' in req.body) {
-            updates['$set'] = { title: params.title };
+            updates['$set'] = { title: param.title };
         }
 
-        if (state == RUNNIG || state == PAUSED || state == ZEROED) {
+        if (state === RUNNED || state === PAUSED || state === ZEROED) {
             updates['$push'] = {
                 state: { ts: +new Date(), st: state }
             };
+        }
+
+        if (!Object.keys(updates).length) {
+            return res.send(500, {error: 'Empty update body'});
         }
 
         db.timers.findAndModify(query, [], updates, options, res.endify);
