@@ -1,6 +1,6 @@
 'use strict';
 
-/* borschik:include:../bower_components/angular/angular.js */
+/* borschik:include:../bower_components/angular/angular.min.js */
 
 /* borschik:include:app.js */
 /* borschik:include:filters.js */
