@@ -10,7 +10,9 @@
 
 <div class="page" ng-controller="TimersCtrl">
 
-    <a ng-hide="loaded" href="/api/auth/facebook">Login with Facebook</a>
+    <div class="promo">
+        <a class="fb-button" ng-hide="loaded" href="/api/auth/facebook">Log in with Facebook</a>
+    </div>
 
     <ul class="timers" ng-show="loaded">
 
