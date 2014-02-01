@@ -16,8 +16,6 @@ angular.module('caelum.controllers', [])
 
 function TimersCtrl($scope, $http) {
 
-    console.log('TimersCtrl', $scope);
-
     angular.extend($scope, {
 
         /**
@@ -139,7 +137,7 @@ function TimersCtrl($scope, $http) {
             angular.forEach(states, function(state) {
                 switch (state.st) {
                     case STATE['zeroed']: value = 0; break;
-                    case STATE['runnde']: start = state.ts; break;
+                    case STATE['runned']: start = state.ts; break;
                     case STATE['paused']: value += state.ts - start; break;
                 }
             });
