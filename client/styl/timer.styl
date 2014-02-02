@@ -9,6 +9,7 @@ $timer_height = 100px
 .timer
   skin: isle
 
+  position: relative
   display: inline-block
 
   width: $timer_width
@@ -19,6 +20,19 @@ $timer_height = 100px
 
   text-align: center
   vertical-align: top
+
+  transition:
+    width .4s,
+    height .4s,
+    padding .4s,
+    visibility .4s,
+    margin-left .4s,
+    margin-right .4s,
+    margin-top .1s linear .4s,
+    margin-bottom .1s linear .4s
+
+  &:hover .timer__archive
+    opacity: .4
 
 .timer__title__input
   skin: input small
@@ -45,14 +59,31 @@ $timer_height = 100px
   skin: button one-element
   -webkit-transition: opacity .2s ease .2s;
 
+.timer__archive
+  position: absolute
+  left: $m
+  bottom: $m
+  cursor: pointer
+  opacity: 0
+  transition: opacity .4s
+
 .is-disabled
   cursor: default !important;
   opacity: 0.6;
 
-.timer_runned .icon-play
-.timer_zeroed .icon-pause
-.timer_paused .icon-pause
+.timer_runned .fa-play
+.timer_zeroed .fa-pause
+.timer_paused .fa-pause
   display: none
 
 .timer_new
   line-height: $timer_height
+
+.timer_archive
+  width: 0
+  height: 0
+  margin: 0
+  padding: 0
+  overflow: hidden
+  visibility: hidden;
+

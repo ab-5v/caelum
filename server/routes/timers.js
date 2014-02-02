@@ -51,8 +51,12 @@ module.exports = {
         var options = {new: true};
         var updates = {};
 
-        if ('title' in req.body) {
+        if ('title' in param) {
             updates['$set'] = { title: param.title };
+        }
+
+        if ('archive' in param) {
+            updates['$set'] = { archive: !!param.archive }
         }
 
         if (state === RUNNED || state === PAUSED || state === ZEROED) {

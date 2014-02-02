@@ -3,7 +3,7 @@
 <meta charset="utf-8" />
 <title>tq6</title>
 
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <link href="css/index.css" rel="stylesheet" />
 
 <script src="js/index.js"></script>
@@ -16,7 +16,9 @@
 
     <ul class="timers" ng-show="loaded">
 
-        <li class="timer timer_{{timer.lastState}}" ng-repeat="timer in timers">
+        <li class="timer timer_{{timer.lastState}}"
+            ng-repeat="timer in timers"
+            ng-class="{'timer_archive': timer.archive}">
 
             <div class="timer__title" ca-inplace="updateTitle(timer._id, timer.title)">
                 <div class="timer__title__text">{{timer.title}}</div>
@@ -30,13 +32,20 @@
                 ng-class="{'is-disabled': updatingState}"
                 ng-disabled="updatingState">
 
-                <i class="icon-play"></i>
-                <i class="icon-pause"></i>
+                <i class="fa fa-play"></i>
+                <i class="fa fa-pause"></i>
             </button>
+
+            <span class="timer__archive"
+                ng-click="moveToArchive(timer._id, timer.lastState)"
+                title="Move to Archive">
+
+                <i class="fa fa-archive"></i>
+            </span>
         </li>
         <li class="timer timer_new">
             <button class="timer__button" ng-click="create()">
-                <i class="icon-plus"></i>
+                <i class="fa fa-plus"></i>
             </button>
         </li>
     </ul>
