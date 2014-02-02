@@ -81,35 +81,26 @@ function TimersCtrl($scope, $http) {
          * @param {String} state
          */
         updateState: function(id, state) {
+            var timer = $scope.getTimerById(id);
 
             $scope.updatingState = true;
 
             return $http.put(API_TIMERS + id, {state: STATE[state]})
                 .success(function(data) {
-
-                    angular.forEach($scope.timers, function(timer) {
-                        if (timer._id === id) {
-                            timer.state = data.state
-                            $scope.setLastState(timer);
-                        }
-                    });
-
+                    timer.state = data.state
+                    $scope.setLastState(timer);
                     $scope.updatingState = false;
-
                 }).error(httperror);
         },
 
         moveToArchive: function(id, state) {
+            var timer = $scope.getTimerById(id);
 
             if (state == 'runned') {
                 return $scope.updateState(id, 'paused')
                     .success(function(data) {
-                        angular.forEach($scope.timers, function(timer) {
-                            if (timer._id === id) {
-                                timer.state = data.state
-                                $scope.moveToArchive(id, timer.state);
-                            }
-                        });
+                        timer.state = data.state
+                        $scope.moveToArchive(id, timer.state);
                     });
             }
 
@@ -117,12 +108,7 @@ function TimersCtrl($scope, $http) {
 
             return $http.put(API_TIMERS + id, {archive: true})
                 .success(function(data) {
-                    angular.forEach($scope.timers, function(timer) {
-                        if (timer._id === id) {
-                            timer.archive = data.archive
-                        }
-                    });
-
+                    timer.archive = data.archive
                     $scope.updatingState = false;
                 }).error(httperror);
         },
@@ -198,6 +184,16 @@ function TimersCtrl($scope, $http) {
             }, this);
 
             $scope.$apply();
+        },
+
+        getTimerById: function(id) {
+            var found = null;
+            angular.forEach($scope.timers, function(timer) {
+                if (timer._id == id) {
+                    found = timer;
+                }
+            });
+            return found;
         }
 
     });
