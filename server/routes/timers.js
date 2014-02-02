@@ -11,23 +11,37 @@ module.exports = {
             user: req.user._id
         };
 
+        var options = {
+            sort: {order: 1}
+        };
+
         if (req.params._id) {
             query._id = db.id(req.params._id);
         }
 
-        db.timers.find(query).toArray(res.endify);
+        db.timers.find(query, options).toArray(res.endify);
     },
 
     create: function(req, res) {
-        var doc = {
-            user: req.user._id,
-            title: req.body.title || '',
-            state: [
-                { ts: +new Date(), st: ZEROED }
-            ]
+        var query = {
+            user: req.user._id
         };
 
-        db.timers.insert(doc, res.endifyOne);
+        db.timers.count(query, function(err, count) {
+            if (err) return res.endify(err);
+
+            var doc = {
+                user: req.user._id,
+                title: req.body.title || '',
+                state: [
+                    { ts: +new Date(), st: ZEROED }
+                ],
+                order: count
+            };
+
+            db.timers.insert(doc, res.endifyOne);
+        });
+
     },
 
     update: function(req, res) {
