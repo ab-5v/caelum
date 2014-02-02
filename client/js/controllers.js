@@ -165,9 +165,9 @@ function TimersCtrl($scope, $http) {
         updateValues: function() {
             angular.forEach($scope.timers, function(timer) {
                 if (timer.lastState === 'runned') {
-                    timer.value += 1000;
+                    timer.value += this.updateTimeout;
                 }
-            });
+            }, this);
 
             $scope.$apply();
         }
