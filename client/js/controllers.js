@@ -198,21 +198,31 @@ function TimersCtrl($scope, $http) {
 
     });
 
-    $http.get(API_TIMERS)
-        .success(function(data) {
-            $scope.loaded = true;
-            $scope.timers = data;
 
-            angular.forEach(data, function(timer) {
-                $scope.setValue(timer);
-                $scope.setLastState(timer);
-            });
+    load();
 
-        }).error(httperror);
+    if ('webkitHidden' in document) {
+        document.addEventListener('webkitvisibilitychange', load, false);
+    }
 
     setInterval(function() {
         $scope.updateValues();
     }, 1000);
+
+    function load() {
+        $http.get(API_TIMERS)
+            .success(function(data) {
+                $scope.loaded = true;
+                $scope.timers = data;
+
+                angular.forEach(data, function(timer) {
+                    $scope.setValue(timer);
+                    $scope.setLastState(timer);
+                });
+
+            }).error(httperror);
+    }
+
 }
 
 function httperror() {
